@@ -21,6 +21,6 @@ data Target = Target
 
 data Modpack = Modpack 
     {   _name :: String
-    ,   targets :: Target
+    ,   target :: Target
     ,   mods :: [Mod]
     }
