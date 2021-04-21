@@ -1,8 +1,12 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module ModMetadata (
 
     )
      where
 
+import Data.Aeson.Types
+import Data.Aeson
 
 data FabricJson = FabricJson
     {   schemaVersion :: Int 
@@ -20,6 +24,16 @@ data FabricContact = FabricContact
     ,   irc :: Maybe String
     ,   email :: Maybe String
     }
+    deriving (Show)
+
+instance FromJSON FabricContact where
+    parseJSON = withObject "contact" $ \obj -> do
+        homepage  <- obj .:? "homepage"
+        sources   <- obj .:? "sources"
+        issues    <- obj .:? "issues"
+        irc       <- obj .:? "irc"
+        email     <- obj .:? "email"
+        return (FabricContact {homepage=homepage, sources=sources, issues=issues, irc=irc, email=email}) 
 
 data FabricPerson = FabricPerson
     {   _name :: String
