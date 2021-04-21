@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      Configuration
       Lib
   other-modules:
       Paths_packr
@@ -32,6 +33,9 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , text
+    , time
+    , tomland
   default-language: Haskell2010
 
 executable packr-exe
@@ -44,6 +48,9 @@ executable packr-exe
   build-depends:
       base >=4.7 && <5
     , packr
+    , text
+    , time
+    , tomland
   default-language: Haskell2010
 
 test-suite packr-test
@@ -57,4 +64,7 @@ test-suite packr-test
   build-depends:
       base >=4.7 && <5
     , packr
+    , text
+    , time
+    , tomland
   default-language: Haskell2010
