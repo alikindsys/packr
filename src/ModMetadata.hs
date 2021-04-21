@@ -9,19 +9,19 @@ data FabricJson = FabricJson
     ,   id :: String
     ,   _version :: String
     ,   __description :: String
-    ,   authors :: ![Either String FabricPerson]
-    ,   contact :: !FabricContact 
+    ,   authors :: Maybe [Either String FabricPerson]
+    ,   contact :: Maybe FabricContact 
     }
 
 data FabricContact = FabricContact
-    {   homepage :: !String
-    ,   sources :: !String
-    ,   issues :: !String
-    ,   irc :: !String
-    ,   email :: !String
+    {   homepage :: Maybe String
+    ,   sources :: Maybe String
+    ,   issues :: Maybe String
+    ,   irc :: Maybe String
+    ,   email :: Maybe String
     }
 
 data FabricPerson = FabricPerson
     {   _name :: String
-    ,   _contact :: !FabricContact
+    ,   _contact :: Maybe FabricContact
     }
