@@ -1,5 +1,6 @@
 module Modpack (
         Mod(..)
+    ,   Modloader(..)
     ) 
     where
 
@@ -8,3 +9,5 @@ data Mod = Mod
     ,   version :: String 
     ,   dependecies :: [Mod]
     }
+
+data Modloader = Forge | Fabric
