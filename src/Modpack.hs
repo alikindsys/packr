@@ -10,6 +10,7 @@ data Mod = Mod
     {   name :: String
     ,   version :: String 
     ,   dependecies :: [Mod]
+    ,   targets :: [Target]
     }
 
 data Modloader = Forge | Fabric
