@@ -24,6 +24,9 @@ dependencies:
 - tomland
 - text
 - time
+- zip
+- containers
+- filepath
 
 library:
   source-dirs: src
