@@ -1,4 +1,4 @@
-module Mod (
+module ModMetadata (
 
     )
      where
