@@ -17,6 +17,7 @@ data Modloader = Forge | Fabric
 data Target = Target 
     {   mcVersion :: String
     ,   modloader :: Modloader
+    ,   modloaderVersion :: String
     }
 
 data Modpack = Modpack 
