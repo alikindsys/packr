@@ -39,3 +39,8 @@ data FabricPerson = FabricPerson
     {   _name :: String
     ,   _contact :: Maybe FabricContact
     }
+
+instance FromJSON FabricPerson where
+    parseJSON (Object v) = FabricPerson
+        <$> v .: "name"
+        <*> v .:? "contact"
