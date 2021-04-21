@@ -27,13 +27,13 @@ data FabricContact = FabricContact
     deriving (Show)
 
 instance FromJSON FabricContact where
-    parseJSON = withObject "contact" $ \obj -> do
-        homepage  <- obj .:? "homepage"
-        sources   <- obj .:? "sources"
-        issues    <- obj .:? "issues"
-        irc       <- obj .:? "irc"
-        email     <- obj .:? "email"
-        return (FabricContact {homepage=homepage, sources=sources, issues=issues, irc=irc, email=email}) 
+    parseJSON (Object v) = FabricContact 
+        <$> v .:? "homepage"
+        <*> v .:? "sources"
+        <*> v .:? "issues"
+        <*> v .:? "irc"
+        <*> v .:? "email"
+
 
 data FabricPerson = FabricPerson
     {   _name :: String
