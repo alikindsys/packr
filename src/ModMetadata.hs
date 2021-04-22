@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+{-# LANGUAGE LambdaCase #-}
 module ModMetadata (
 
     )
@@ -31,6 +32,16 @@ instance FromJSON FabricJson where
         <*> v .: "description"
         <*> v .:? "authors"
         <*> v .:? "contact"
+
+
+data FabricEnvironment = All | Client | Server
+
+instance FromJSON FabricEnvironment where
+    parseJSON = withText "environment" $ \case
+            "*" -> return All
+            "client" -> return Client
+            "server" -> return Server
+            _ -> fail "Unsupported Environment Type"
 
 
 data FabricContact = FabricContact
