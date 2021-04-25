@@ -19,10 +19,9 @@ data FabricJson = FabricJson
     ,   id :: String
     ,   _version :: String
     ,   __description :: String
-    ,   authors :: Maybe [String]
+    ,   authors :: Maybe [FabricPerson]
     ,   contact :: Maybe FabricContact 
     }
-    deriving (Show)
 
 instance FromJSON FabricJson where
     parseJSON (Object v) = FabricJson
