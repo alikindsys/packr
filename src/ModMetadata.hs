@@ -49,6 +49,9 @@ data FabricEntrypoint = FabricEntrypoint
     ,   value :: String
     }
 
+data Version = ExactMatch String | Match MatchType String | VersionRange [Version]
+data MatchType = LT | LTE | GT | GTE
+
 data FabricContact = FabricContact
     {   homepage :: Maybe String
     ,   sources :: Maybe String
