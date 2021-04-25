@@ -44,6 +44,11 @@ instance FromJSON FabricEnvironment where
             _ -> fail "Unsupported Environment Type"
 
 
+data FabricEntrypoint = FabricEntrypoint 
+    {   adapter :: Maybe String
+    ,   value :: String
+    }
+
 data FabricContact = FabricContact
     {   homepage :: Maybe String
     ,   sources :: Maybe String
