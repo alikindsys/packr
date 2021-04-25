@@ -79,3 +79,6 @@ instance FromJSON FabricPerson where
     parseJSON (Object v) = FabricPerson
         <$> v .: "name"
         <*> v .:? "contact"
+    
+    parseJSON (String s) = 
+        pure FabricPerson {_name=T.unpack s, _contact=Nothing}
