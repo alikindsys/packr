@@ -27,6 +27,10 @@ dependencies:
 - zip
 - containers
 - filepath
+- aeson
+- bytestring
+- vector
+- unordered-containers
 
 library:
   source-dirs: src
