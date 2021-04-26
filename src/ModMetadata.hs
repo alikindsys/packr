@@ -1,6 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE TupleSections #-}
+
 module ModMetadata (
 
     )
@@ -13,6 +15,13 @@ import qualified Data.ByteString.Lazy as BL
 import Control.Applicative (Alternative((<|>)))
 import qualified Data.Text as T
 import qualified Data.Vector as V
+import qualified Data.Map as M
+import qualified Data.HashMap.Strict as HM
+import Data.Map (Map, keys)
+import Control.Monad (forM_, forM)
+import Data.List (partition)
+import Data.Maybe (catMaybes)
+
 
 data FabricJson = FabricJson
     {   schemaVersion :: Int 
@@ -57,16 +66,23 @@ data FabricContact = FabricContact
     ,   issues :: Maybe String
     ,   irc :: Maybe String
     ,   email :: Maybe String
+    ,   custom :: Map String String
     }
     deriving (Show)
 
 instance FromJSON FabricContact where
-    parseJSON (Object v) = FabricContact 
-        <$> v .:? "homepage"
-        <*> v .:? "sources"
-        <*> v .:? "issues"
-        <*> v .:? "irc"
-        <*> v .:? "email"
+    parseJSON (Object v) = do
+        mhp    <- v .:? "homepage"
+        msrc   <- v .:? "sources"
+        miss   <- v .:? "issues"
+        mirc   <- v .:? "irc"
+        memail <- v .:? "email"
+        let foundFields = catMaybes [mhp, msrc, miss, mirc, memail]
+        rest <- mapM (\(k,o) -> (T.unpack k,) <$> parseJSON o)
+              (HM.toList theRest)
+        return $ FabricContact mhp msrc miss mirc memail (M.fromList rest)
+        where
+            theRest = foldr HM.delete v ["homepage", "sources", "issues", "irc", "email"]
 
 
 data FabricPerson = FabricPerson
