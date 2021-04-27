@@ -21,6 +21,7 @@ import Data.Map (Map, keys)
 import Control.Monad (forM_, forM)
 import Data.List (partition)
 import Data.Maybe (catMaybes)
+import Salve
 
 
 data FabricJson = FabricJson
@@ -57,8 +58,6 @@ data FabricEntrypoint = FabricEntrypoint
     ,   value :: String
     }
 
-data Version = ExactMatch String | Match MatchType String | VersionRange [Version]
-data MatchType = LT | LTE | GT | GTE
 
 data FabricContact = FabricContact
     {   homepage :: Maybe String
