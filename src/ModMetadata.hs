@@ -79,6 +79,9 @@ data FabricEntrypoint = FabricEntrypoint
     }
 
 
+data FabricVersionRange = Singleton Constraint | Range [Constraint]
+    deriving (Show)
+
 data FabricDependency = FabricDependency
     {   _id :: String
     ,   constraints :: [Constraint]
