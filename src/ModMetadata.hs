@@ -94,7 +94,7 @@ instance ToJSON FabricVersionRange where
 
 data FabricDependency = FabricDependency
     {   _id :: String
-    ,   constraints :: [Constraint]
+    ,   constraints :: FabricVersionRange
     }
     deriving (Show)
 
