@@ -40,6 +40,9 @@ instance FromJSON Version where
         where
             attempt = parseVersion $ T.unpack s
 
+instance ToJSON Version where
+    toJSON a = String <$> T.pack $ renderVersion a
+
 instance FromJSON FabricJson where
     parseJSON (Object v) = FabricJson
         <$> v .: "schemaVersion"
