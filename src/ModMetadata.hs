@@ -49,6 +49,9 @@ instance FromJSON Constraint where
         where
             attempt = parseConstraint $ T.unpack s
 
+instance ToJSON Constraint where
+    toJSON a = String <$> T.pack $ renderConstraint a
+
 
 instance FromJSON FabricJson where
     parseJSON (Object v) = FabricJson
