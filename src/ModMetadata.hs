@@ -82,6 +82,11 @@ data FabricEntrypoint = FabricEntrypoint
 data FabricVersionRange = Singleton Constraint | Range [Constraint]
     deriving (Show)
 
+instance FromJSON FabricVersionRange where
+    parseJSON (String s) = Singleton <$> parseJSON (String s)
+    
+    parseJSON (Array arr) = Range <$> parseJSON (Array arr)
+
 data FabricDependency = FabricDependency
     {   _id :: String
     ,   constraints :: [Constraint]
