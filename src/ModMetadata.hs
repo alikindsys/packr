@@ -11,6 +11,7 @@ module ModMetadata (
 import Data.Aeson.Types
     ( (.:), (.:?), FromJSON(parseJSON), Value(Object, String), Parser )
 import Data.Aeson
+import Data.Maybe
 import qualified Data.ByteString.Lazy as BL
 import Control.Applicative (Alternative((<|>)))
 import qualified Data.Text as T
@@ -33,6 +34,12 @@ data FabricJson = FabricJson
     ,   contact :: Maybe FabricContact 
     }
 
+instance FromJSON Version where
+    parseJSON (String s) = do
+        maybe (fail "Invalid version number") return attempt
+        where
+            attempt = parseVersion $ T.unpack s
+
 instance FromJSON FabricJson where
     parseJSON (Object v) = FabricJson
         <$> v .: "schemaVersion"
@@ -53,7 +60,7 @@ instance FromJSON FabricEnvironment where
             _ -> fail "Unsupported Environment Type"
 
 
-data FabricEntrypoint = FabricEntrypoint 
+data FabricEntrypoint = FabricEntrypoint
     {   adapter :: Maybe String
     ,   value :: String
     }
@@ -93,6 +100,6 @@ instance FromJSON FabricPerson where
     parseJSON (Object v) = FabricPerson
         <$> v .: "name"
         <*> v .:? "contact"
-    
-    parseJSON (String s) = 
+
+    parseJSON (String s) =
         pure FabricPerson {_name=T.unpack s, _contact=Nothing}
