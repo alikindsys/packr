@@ -43,6 +43,13 @@ instance FromJSON Version where
 instance ToJSON Version where
     toJSON a = String <$> T.pack $ renderVersion a
 
+instance FromJSON Constraint where
+    parseJSON (String s) = do
+        maybe (fail "Invalid version constraint") return attempt
+        where
+            attempt = parseConstraint $ T.unpack s
+
+
 instance FromJSON FabricJson where
     parseJSON (Object v) = FabricJson
         <$> v .: "schemaVersion"
