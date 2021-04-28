@@ -28,7 +28,7 @@ import Salve
 data FabricJson = FabricJson
     {   schemaVersion :: Int 
     ,   id :: String
-    ,   _version :: String
+    ,   _version :: Version
     ,   __description :: String
     ,   authors :: Maybe [FabricPerson]
     ,   contact :: Maybe FabricContact 
