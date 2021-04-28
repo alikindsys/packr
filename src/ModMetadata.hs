@@ -79,6 +79,13 @@ data FabricEntrypoint = FabricEntrypoint
     }
 
 
+data FabricDependency = FabricDependency
+    {   _id :: String
+    ,   constraints :: [Constraint]
+    }
+    deriving (Show)
+
+
 data FabricContact = FabricContact
     {   homepage :: Maybe String
     ,   sources :: Maybe String
