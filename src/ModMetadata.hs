@@ -87,6 +87,11 @@ instance FromJSON FabricVersionRange where
     
     parseJSON (Array arr) = Range <$> parseJSON (Array arr)
 
+instance ToJSON FabricVersionRange where
+    toJSON (Singleton s) = toJSON s
+    
+    toJSON (Range arr) = toJSON arr
+
 data FabricDependency = FabricDependency
     {   _id :: String
     ,   constraints :: [Constraint]
