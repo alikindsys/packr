@@ -102,6 +102,11 @@ data FabricDependency = FabricDependency
     }
     deriving (Show)
 
+data FabricDependencyBlock = FabricDependencyBlock
+  {  dependencies :: [FabricDependency]
+  }
+  deriving (Show)
+
 
 data FabricContact = FabricContact
     {   homepage :: Maybe String
