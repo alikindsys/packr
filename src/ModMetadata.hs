@@ -118,6 +118,9 @@ instance FromJSON FabricDependencyBlock where
     x <- dependencyBlockParser (HM.keys o) (HM.elems o)
     pure FabricDependencyBlock { dependencies = x }
 
+instance ToJSON FabricDependencyBlock where
+  toJSON = toJSON . M.fromList .  map (\i -> (_id i, constraints i)) . dependencies 
+
 dependencyBlockParser :: [T.Text] -> [Value] -> Parser [FabricDependency]
 dependencyBlockParser [] _ = pure []
 
