@@ -108,6 +108,11 @@ data FabricDependencyBlock = FabricDependencyBlock
   deriving (Show)
 
 
+dependencyParser :: T.Text -> Value -> Parser FabricDependency
+dependencyParser k v = do
+    x <- parseJSON v
+    pure FabricDependency { _id = T.unpack  k, constraints = x }
+
 data FabricContact = FabricContact
     {   homepage :: Maybe String
     ,   sources :: Maybe String
