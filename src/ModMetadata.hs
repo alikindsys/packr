@@ -113,6 +113,11 @@ dependencyParser k v = do
     x <- parseJSON v
     pure FabricDependency { _id = T.unpack  k, constraints = x }
 
+instance FromJSON FabricDependencyBlock where
+  parseJSON (Object o) = do
+    x <- dependencyBlockParser (HM.keys o) (HM.elems o)
+    pure FabricDependencyBlock { dependencies = x }
+
 dependencyBlockParser :: [T.Text] -> [Value] -> Parser [FabricDependency]
 dependencyBlockParser [] _ = pure []
 
