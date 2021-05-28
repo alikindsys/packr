@@ -116,7 +116,6 @@ instance FromJSON FabricContact where
         miss   <- v .:? "issues"
         mirc   <- v .:? "irc"
         memail <- v .:? "email"
-        let foundFields = catMaybes [mhp, msrc, miss, mirc, memail]
         rest <- mapM (\(k,o) -> (T.unpack k,) <$> parseJSON o)
               (HM.toList theRest)
         return $ FabricContact mhp msrc miss mirc memail (M.fromList rest)
