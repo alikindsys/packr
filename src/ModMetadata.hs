@@ -44,6 +44,10 @@ instance ToJSON Version where
     toJSON a = String <$> T.pack $ renderVersion a
 
 instance FromJSON Constraint where
+    parseJSON (String "*") = do
+      maybe (fail "Invalid version constraint") pure attempt
+      where
+        attempt = parseConstraint "x.x.x"
     parseJSON (String s) = do
         maybe (fail "Invalid version constraint") return attempt
         where
