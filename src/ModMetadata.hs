@@ -113,6 +113,14 @@ dependencyParser k v = do
     x <- parseJSON v
     pure FabricDependency { _id = T.unpack  k, constraints = x }
 
+dependencyBlockParser :: [T.Text] -> [Value] -> Parser [FabricDependency]
+dependencyBlockParser [] _ = pure []
+
+dependencyBlockParser (k:ks) (v:vs) = do
+  single <- dependencyParser k v
+  rest <- dependencyBlockParser ks vs
+  pure (single : rest)
+
 data FabricContact = FabricContact
     {   homepage :: Maybe String
     ,   sources :: Maybe String
